@@ -8,6 +8,11 @@ Based on https://github.com/wagtail/bakerydemo - see installation instructions b
 - [ ] Call this function using relevant page content on save, using search fields. We'll use the Blog Page model [Matt]
 - [ ] Populate tags using the results of the function [Matt]
 
+## Questions
+
+- Should we differentiate robot tags from human tags? e.g. with a namespace: 'Auto:Wagtail'
+- What happens when pages are updated - do we remove tags which are no longer relevant? 
+
 Wagtail demo project
 =======================
 
