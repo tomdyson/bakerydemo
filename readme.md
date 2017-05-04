@@ -4,9 +4,9 @@ Based on https://github.com/wagtail/bakerydemo - see installation instructions b
 
 ## To do
 
-- [ ] Utility function which takes text and returns entities exceeding a specified salience score, as a list of strings, using Google's [entity analysis API](https://cloud.google.com/natural-language/docs/analyzing-entities) [Tom]
-- [ ] Call this function using relevant page content on save, using search fields. We'll use the Blog Page model [Matt]
-- [ ] Populate tags using the results of the function [Matt]
+- [ ] #1 Utility function which takes text and returns entities exceeding a specified salience score, as a list of strings, using Google's [entity analysis API](https://cloud.google.com/natural-language/docs/analyzing-entities)
+- [ ] #2 Call this function using relevant page content on save, using search fields.
+- [ ] #3 Populate tags using the results of the function
 
 ## Questions
 
