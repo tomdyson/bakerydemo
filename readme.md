@@ -4,7 +4,7 @@ Based on https://github.com/wagtail/bakerydemo - see installation instructions b
 
 ## To do
 
-- [ ] [Utility function](https://github.com/tomdyson/entity-tagging-demo/issues/1) which takes text and returns entities exceeding a specified salience score, as a list of strings, using Google's [entity analysis API](https://cloud.google.com/natural-language/docs/analyzing-entities)
+- [x] [Utility function](https://github.com/tomdyson/entity-tagging-demo/issues/1) which takes text and returns entities exceeding a specified salience score, as a list of strings, using Google's [entity analysis API](https://cloud.google.com/natural-language/docs/analyzing-entities)
 - [ ] [Call this function](https://github.com/tomdyson/entity-tagging-demo/issues/2) using relevant page content on save, using search fields.
 - [ ] [Populate tags](https://github.com/tomdyson/entity-tagging-demo/issues/3) using the results of the function
 
