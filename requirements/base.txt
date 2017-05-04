@@ -6,3 +6,4 @@ django-dotenv==1.4.1
 wagtail==1.9.1
 wagtailfontawesome==1.0.6
 Pillow==4.0.0
+google-cloud==0.25.0

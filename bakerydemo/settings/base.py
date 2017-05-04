@@ -175,3 +175,5 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Wagtail settings
 WAGTAIL_SITE_NAME = "bakerydemo"
+
+NLP_API_KEY = '/usr/local/django/entity-tagging-demo/nlp-user-key.json'
