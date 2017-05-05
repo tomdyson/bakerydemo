@@ -9,27 +9,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                {% if page.introduction %}
-                    <p class="intro">{{ page.introduction }}</p>
-                {% endif %}
-
-                <div class="blog-meta">
-                    {% if page.authors %}
-                        <div class="blog-avatars">
-                            {% for author in page.authors %}
-                                <div class="author">{% image author.image fill-50x50-c100 class="blog-avatar" %}
-                                    {{ author.first_name }} {{ author.last_name }}</div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    {% if page.date_published %}
-                        <div class="blog-byline">
-                            {{ page.date_published }}
-                        </div>
-                    {% endif %}
-                </div>
-
                 {{ page.body }}
 
                 {% if page.get_tags %}

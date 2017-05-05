@@ -58,9 +58,6 @@ class BlogPage(Page):
     ParentalKey's related_name in BlogPeopleRelationship. More docs:
     http://docs.wagtail.io/en/latest/topics/pages.html#inline-models
     """
-    introduction = models.TextField(
-        help_text='Text to describe the page',
-        blank=True)
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -72,43 +69,21 @@ class BlogPage(Page):
     body = StreamField(
         BaseStreamBlock(), verbose_name="Page body", blank=True
     )
-    subtitle = models.CharField(blank=True, max_length=255)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     date_published = models.DateField(
         "Date article published", blank=True, null=True
         )
 
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle', classname="full"),
-        FieldPanel('introduction', classname="full"),
         ImageChooserPanel('image'),
         StreamFieldPanel('body'),
-        FieldPanel('date_published'),
-        InlinePanel(
-            'blog_person_relationship', label="Author(s)",
-            panels=None, min_num=1),
         FieldPanel('tags'),
     ]
 
     search_fields = Page.search_fields + [
         index.SearchField('title'),
-        index.SearchField('introduction'),
         index.SearchField('body'),
     ]
-
-    def authors(self):
-        """
-        Returns the BlogPage's related People. Again note that we are using
-        the ParentalKey's related_name from the BlogPeopleRelationship model
-        to access these objects. This allows us to access the People objects
-        with a loop on the template. If we tried to access the blog_person_
-        relationship directly we'd print `blog.BlogPeopleRelationship.None`
-        """
-        authors = [
-            n.people for n in self.blog_person_relationship.all()
-        ]
-
-        return authors
 
     @property
     def get_tags(self):
@@ -132,6 +107,7 @@ class BlogPage(Page):
     # Specifies what content types can exist as children of BlogPage.
     # Empty list means that no child content types are allowed.
     subpage_types = []
+
 
     def full_clean(self, *args, **kwargs):
         # get all string-based searchable content as a flat array
