@@ -123,7 +123,7 @@ class BlogPage(Page):
         search_content_string = '. '.join(search_content)
 
         auto_tags = extract_entities(search_content_string)
-        namespaced_tags = ["auto:%s" % tag for tag in auto_tags]
+        namespaced_tags = ["%s" % tag for tag in auto_tags]
         self.tags.add(*namespaced_tags)
 
         super(BlogPage, self).full_clean(*args, **kwargs)
