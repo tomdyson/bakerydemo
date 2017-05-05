@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.contrib import messages
 from django.db import models
 from django.shortcuts import redirect, render
+from django.utils import six
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -18,6 +19,7 @@ from wagtail.wagtailsearch import index
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from bakerydemo.base.blocks import BaseStreamBlock
+from bakerydemo.base.utils import extract_entities
 
 
 class BlogPeopleRelationship(Orderable, models.Model):
@@ -90,6 +92,7 @@ class BlogPage(Page):
 
     search_fields = Page.search_fields + [
         index.SearchField('title'),
+        index.SearchField('introduction'),
         index.SearchField('body'),
     ]
 
@@ -129,6 +132,25 @@ class BlogPage(Page):
     # Specifies what content types can exist as children of BlogPage.
     # Empty list means that no child content types are allowed.
     subpage_types = []
+
+    def full_clean(self, *args, **kwargs):
+        # get all string-based searchable content as a flat array
+        search_content = []
+        for field in self.get_searchable_search_fields():
+            val = field.get_value(self)
+            if isinstance(val, six.string_types):
+                search_content.append(val)
+            elif isinstance(val, list):
+                # searchable content is a list (e.g. streamfield) - scan it for strings
+                search_content.extend([i for i in val if isinstance(i, six.string_types)])
+
+        search_content_string = '. '.join(search_content)
+
+        auto_tags = extract_entities(search_content_string)
+        namespaced_tags = ["auto:%s" % tag for tag in auto_tags]
+        self.tags.add(*namespaced_tags)
+
+        super(BlogPage, self).full_clean(*args, **kwargs)
 
 
 class BlogIndexPage(RoutablePageMixin, Page):
